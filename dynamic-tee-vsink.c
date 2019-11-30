@@ -211,6 +211,10 @@ pad_added_cb (GstElement * element, GstPad * pad, gpointer user_data)
     g_object_set (sink, "sync", TRUE, NULL);
 
     gst_bin_add_many (GST_BIN (pipeline), queue, sink, NULL);
+
+    gst_element_sync_state_with_parent (sink);
+    gst_element_sync_state_with_parent (queue);
+
     gst_element_link_many (queue, sink, NULL);
 
     sinkpad = gst_element_get_static_pad (queue, "sink");
